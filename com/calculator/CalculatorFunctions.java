@@ -104,7 +104,7 @@ public class CalculatorFunctions {
 				}
 
 			} else if (charAtI == '.') {
-
+				//LOL
 				if (!(Character.isDigit(expression.charAt(i - 1))) && !(Character.isDigit(expression.charAt(i + 1)))) {
 					return false;
 				}
