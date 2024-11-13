@@ -97,7 +97,7 @@ public class CalculatorFunctions {
 					boolean isRightValid = (isDigitAtRight || isBracketAtRight);
 					// If the left or right is wrong and if theirs a symbol left or right
 					if (!isLeftValid || !isRightValid && !(isSymbol(charAtRight) || isSymbol(charAtLeft))) {
-
+ 
 						return false;
 					}
 
