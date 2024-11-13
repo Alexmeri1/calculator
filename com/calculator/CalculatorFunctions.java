@@ -118,6 +118,13 @@ public class CalculatorFunctions {
 
 		return stackForBrackets.isEmpty();
 	}
-	public double Answer()
+	
+	public double answer(String expression) {
+		
+		
+		
+		
+		return 0.0;
+	}
 
 }
