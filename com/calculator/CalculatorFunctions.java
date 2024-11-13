@@ -118,5 +118,6 @@ public class CalculatorFunctions {
 
 		return stackForBrackets.isEmpty();
 	}
+	public double Answer()
 
 }
