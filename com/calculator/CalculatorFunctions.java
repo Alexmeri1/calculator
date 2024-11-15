@@ -11,14 +11,16 @@ public class CalculatorFunctions {
 		this.expression = expression;
 	}
 
-	public static boolean isSymbol(char charAtI) {
+	private static boolean isSymbol(char charAtI) {
+
+		// The possible
 		if (charAtI == '-' || charAtI == '+' || charAtI == '*' || charAtI == '/' || charAtI == '^') {
 			return true;
 		}
 		return false;
 	}
 
-	public String stringWithNoSpaces(String expression) {
+	private String stringWithNoSpaces(String expression) {
 		String newExpresssion = "";
 
 		for (int i = 0; i < expression.length(); i++) {
@@ -40,12 +42,23 @@ public class CalculatorFunctions {
 		// So that + or - or * or / or ^ have either something in front or behind
 		// (either number or bracket),
 		// no 2 concurrent symbols
+		if(ex == null) {
+			return false;
+		}
 
 		String expression = stringWithNoSpaces(ex);
 
+		//empty expression
+				if (expression == "" ) {
+					return false;
+				}
+				
 		for (int i = 0; i < expression.length(); i++) {
 
 			char charAtI = expression.charAt(i);
+			char charAtLeft = (i > 0) ? expression.charAt(i - 1) : ' ';
+
+			char charAtRight = (i < expression.length() - 1) ? expression.charAt(i + 1) : ' ';
 
 			if (charAtI == '(') {
 
@@ -78,36 +91,56 @@ public class CalculatorFunctions {
 					boolean isSymbolAtRight = false;
 					boolean isSymbolAtLeft = false;
 
-					char charAtLeft = expression.charAt(i - 1);
-					char charAtRight = expression.charAt(i + 1);
-
 					isDigitAtLeft = Character.isDigit(charAtLeft);
 
 					isBracketAtLeft = charAtLeft == ')';
-
-					isSymbolAtLeft = isSymbol(charAtLeft);
 
 					isDigitAtRight = Character.isDigit(charAtRight);
 
 					isBracketAtRight = charAtRight == '(';
 
-					isSymbolAtRight = isSymbol(charAtRight);
-
 					boolean isLeftValid = (isDigitAtLeft || isBracketAtLeft);
 					boolean isRightValid = (isDigitAtRight || isBracketAtRight);
 					// If the left or right is wrong and if theirs a symbol left or right
 					if (!isLeftValid || !isRightValid && !(isSymbol(charAtRight) || isSymbol(charAtLeft))) {
- 
+
 						return false;
 					}
 
 				}
-				//LOL
+
 				if (!(Character.isDigit(expression.charAt(i - 1))) && !(Character.isDigit(expression.charAt(i + 1)))) {
 					return false;
 				}
 
-			} else if (Character.isDigit(charAtI)) {
+			} else if (charAtI == '.' || charAtI == ',') {
+				 boolean hasDigitOnLeft = (i > 0) && Character.isDigit(charAtLeft);
+				 boolean hasDigitOnRight = (i < expression.length() -1)
+						 					&& Character.isDigit(charAtRight);
+				if (!hasDigitOnLeft && !hasDigitOnRight) {
+					return false;
+				}
+				
+			}
+
+			/*
+			 * else if (charAtI == '^') { // (8^3) or (8)^(3+5)
+			 * 
+			 * boolean isRightGood = false; boolean isLeftGood = false;
+			 * 
+			 * 
+			 * isLeftGood = (Character.isDigit(charAtLeft) || (charAtLeft == ')'));
+			 * 
+			 * //Right either a digit or '(' isRightGood = (Character.isDigit(charAtRight)
+			 * || (charAtRight == '('));
+			 * 
+			 * 
+			 * 
+			 * if( isRightGood && isLeftGood) { return false; //If left or right are not
+			 * digits or if at left its not a digit and at right its not a opening bracket.
+			 * } }
+			 */
+			else if (Character.isDigit(charAtI)) {
 				continue;
 				// do nothing just to be sure it's at least a digit
 			} else {
@@ -115,12 +148,13 @@ public class CalculatorFunctions {
 			}
 
 		}
-
+		
+		
 		return stackForBrackets.isEmpty();
 	}
-	
+
 	public double answer(String expression) {
-		
+
 		
 		
 		
